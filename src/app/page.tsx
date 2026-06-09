@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Decor from "./ui/Decor";
+import { AcdyonLogo } from "./ui/Logo";
 
 type FormData = {
   name: string;
@@ -117,10 +118,8 @@ export default function HomePage() {
       <header className="sticky top-0 z-20 border-b border-stone-200/60 bg-[var(--paper)]/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-5 sm:px-6 py-3.5">
           <div className="flex items-center gap-2.5">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-sm font-bold text-white shadow-md shadow-emerald-600/25">
-              A
-            </div>
-            <span className="font-display text-lg font-semibold text-stone-800">AcdyOn</span>
+            <AcdyonLogo size={38} />
+            <span className="text-lg font-bold tracking-tight text-stone-900">Acdyon</span>
           </div>
           <Link
             href="/submissions"
@@ -326,7 +325,7 @@ export default function HomePage() {
       </main>
 
       <footer className="mt-auto py-8 text-center text-sm text-stone-400">
-        © 2025 AcdyOn · Academic Pathway Engine
+        © 2025 Acdyon · Academic Pathway Engine
       </footer>
     </div>
   );

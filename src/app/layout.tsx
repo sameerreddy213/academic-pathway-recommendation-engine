@@ -14,7 +14,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Academic Pathway Recommendation Engine | AcdyOn",
+  title: "Academic Pathway Recommendation Engine | Acdyon",
   description:
     "Discover the best academic pathway for your career goals — certifications, DBA, PhD, or Honorary Doctorate.",
 };

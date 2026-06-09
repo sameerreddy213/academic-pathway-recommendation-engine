@@ -1,6 +1,6 @@
 # 🎓 Academic Pathway Recommendation Engine
 
-An AI-powered web app that collects a user's profile, recommends the ideal academic credential — **Certification Program**, **DBA**, **PhD**, or **Honorary Doctorate** — stores every submission, and exposes an admin dashboard. Built for the AcdyOn Technical Internship Challenge.
+An AI-powered web app that collects a user's profile, recommends the ideal academic credential — **Certification Program**, **DBA**, **PhD**, or **Honorary Doctorate** — stores every submission, and exposes an admin dashboard. Built for the Acdyon Technical Internship Challenge.
 
 ## ✨ Features
 

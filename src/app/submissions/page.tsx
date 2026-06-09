@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getSupabase, Submission } from "@/lib/supabase";
 import SubmissionsDashboard from "./SubmissionsDashboard";
 import Decor from "../ui/Decor";
+import { AcdyonLogo } from "../ui/Logo";
 
 async function getSubmissions(): Promise<Submission[]> {
   try {
@@ -33,10 +34,8 @@ export default async function SubmissionsPage() {
       <header className="sticky top-0 z-20 border-b border-stone-200/60 bg-[var(--paper)]/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-6 py-3.5">
           <div className="flex items-center gap-2.5">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-sm font-bold text-white shadow-md shadow-emerald-600/25">
-              A
-            </div>
-            <span className="font-display text-lg font-semibold text-stone-800">AcdyOn</span>
+            <AcdyonLogo size={38} />
+            <span className="text-lg font-bold tracking-tight text-stone-900">Acdyon</span>
             <span className="text-stone-300">/</span>
             <span className="text-sm text-stone-500">Submissions</span>
           </div>

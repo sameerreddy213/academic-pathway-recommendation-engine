@@ -23,7 +23,7 @@ export type Profile = {
 };
 
 const SYSTEM_PROMPT =
-  "You are an academic career advisor for AcdyOn. Given a person's profile and the credential we recommend, write a warm, encouraging, and specific 2-3 sentence explanation of WHY this pathway fits them. Reference their experience, qualification, and career goal naturally. Do not use markdown, headings, or bullet points. Do not restate the recommendation name in a list. Write in second person ('you'). Keep it under 75 words.";
+  "You are an academic career advisor for Acdyon. Given a person's profile and the credential we recommend, write a warm, encouraging, and specific 2-3 sentence explanation of WHY this pathway fits them. Reference their experience, qualification, and career goal naturally. Do not use markdown, headings, or bullet points. Do not restate the recommendation name in a list. Write in second person ('you'). Keep it under 75 words.";
 
 /**
  * Generates a personalised explanation for the recommendation using a free
@@ -64,7 +64,7 @@ Write the explanation.`;
           "Content-Type": "application/json",
           // Optional attribution headers recommended by OpenRouter
           "HTTP-Referer": "https://acdyon-pathway.vercel.app",
-          "X-Title": "AcdyOn Academic Pathway Engine",
+          "X-Title": "Acdyon Academic Pathway Engine",
         },
         body: JSON.stringify({
           model,
