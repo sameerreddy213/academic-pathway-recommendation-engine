@@ -3,13 +3,15 @@ import type { RecommendationResult } from "./recommend";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 // Best free models on OpenRouter, tried in order until one responds.
-// If a model is rate-limited / unavailable, we fall through to the next.
+// If a model is rate-limited (429) or unavailable, we fall through to the next.
+// Ordered so the verified-live, high-quality models are tried first.
+// Verified against the OpenRouter free tier; override with OPENROUTER_MODEL.
 const FREE_MODELS = [
-  "deepseek/deepseek-chat-v3-0324:free",
+  "moonshotai/kimi-k2.6:free",
+  "google/gemma-4-31b-it:free",
   "meta-llama/llama-3.3-70b-instruct:free",
-  "google/gemini-2.0-flash-exp:free",
-  "qwen/qwen-2.5-72b-instruct:free",
-  "mistralai/mistral-small-3.2-24b-instruct:free",
+  "qwen/qwen3-next-80b-a3b-instruct:free",
+  "google/gemma-4-26b-a4b-it:free",
 ];
 
 export type Profile = {
@@ -49,7 +51,11 @@ Recommended pathway: ${recommendation}
 
 Write the explanation.`;
 
-  for (const model of FREE_MODELS) {
+  // Allow a custom model via env (tried first), then the verified free chain.
+  const override = process.env.OPENROUTER_MODEL?.trim();
+  const models = override ? [override, ...FREE_MODELS] : FREE_MODELS;
+
+  for (const model of models) {
     try {
       const res = await fetch(OPENROUTER_URL, {
         method: "POST",
