@@ -16,6 +16,7 @@ type Result = {
   recommendation: string;
   recommendation_reason: string;
   name: string;
+  aiGenerated: boolean;
 };
 
 const QUALIFICATIONS = [
@@ -90,6 +91,7 @@ export default function HomePage() {
           recommendation: data.submission.recommendation,
           recommendation_reason: data.submission.recommendation_reason,
           name: data.submission.name,
+          aiGenerated: Boolean(data.aiGenerated),
         });
         setForm(initialForm);
       }
@@ -103,7 +105,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-10">
+      <header className="bg-white/70 backdrop-blur-xl border-b border-white/40 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
@@ -139,7 +141,7 @@ export default function HomePage() {
 
         {/* Result Card */}
         {result && (
-          <div className="mb-8 rounded-2xl border bg-white shadow-lg p-6 sm:p-8">
+          <div className="mb-8 rounded-2xl border border-white/50 bg-white/70 backdrop-blur-xl shadow-xl shadow-indigo-100/50 p-6 sm:p-8">
             <div className="flex items-start gap-4">
               <div className="text-4xl">{ICONS[result.recommendation] ?? "🎓"}</div>
               <div className="flex-1 min-w-0">
@@ -148,14 +150,21 @@ export default function HomePage() {
                   <span className="font-semibold text-slate-700">{result.name}</span>, we
                   recommend:
                 </p>
-                <span
-                  className={`inline-block text-sm font-semibold px-3 py-1 rounded-full border mb-3 ${
-                    BADGE_COLORS[result.recommendation] ??
-                    "bg-gray-100 text-gray-800 border-gray-200"
-                  }`}
-                >
-                  {result.recommendation}
-                </span>
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                  <span
+                    className={`inline-block text-sm font-semibold px-3 py-1 rounded-full border ${
+                      BADGE_COLORS[result.recommendation] ??
+                      "bg-gray-100 text-gray-800 border-gray-200"
+                    }`}
+                  >
+                    {result.recommendation}
+                  </span>
+                  {result.aiGenerated && (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-1 rounded-full">
+                      ✨ AI-generated
+                    </span>
+                  )}
+                </div>
                 <p className="text-slate-600 text-sm leading-relaxed">
                   {result.recommendation_reason}
                 </p>
@@ -172,7 +181,7 @@ export default function HomePage() {
 
         {/* Form */}
         {!result && (
-          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+          <div className="rounded-2xl border border-white/50 bg-white/70 backdrop-blur-xl shadow-xl shadow-indigo-100/40 p-6 sm:p-8">
             <h2 className="text-lg font-semibold text-slate-800 mb-6">Your Profile</h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
