@@ -1,40 +1,44 @@
+import Decor from "../ui/Decor";
+
 export default function Loading() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3">
-          <div className="w-8 h-8 bg-indigo-600 rounded-lg" />
-          <div className="h-4 w-20 bg-slate-200 rounded animate-pulse" />
+    <div className="relative min-h-screen">
+      <Decor />
+
+      <header className="border-b border-stone-200/60 bg-[var(--paper)]/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-5 sm:px-6 py-3.5">
+          <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700" />
+          <div className="skeleton h-4 w-20 rounded" />
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-8">
+      <main className="mx-auto max-w-6xl space-y-8 px-5 sm:px-6 py-10">
         <div>
-          <div className="h-7 w-64 bg-slate-200 rounded animate-pulse" />
-          <div className="h-4 w-80 bg-slate-200/70 rounded mt-3 animate-pulse" />
+          <div className="skeleton h-8 w-72 rounded-lg" />
+          <div className="skeleton mt-3 h-4 w-80 rounded" />
         </div>
 
         {/* Stat card skeletons */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
           {Array.from({ length: 5 }).map((_, i) => (
             <div
               key={i}
-              className="rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl p-5"
+              className="rounded-2xl border border-white/60 bg-white/70 p-5 backdrop-blur-xl"
             >
-              <div className="h-4 w-20 bg-slate-200 rounded animate-pulse" />
-              <div className="h-8 w-12 bg-slate-200 rounded mt-3 animate-pulse" />
+              <div className="skeleton h-4 w-20 rounded" />
+              <div className="skeleton mt-3 h-8 w-12 rounded" />
             </div>
           ))}
         </div>
 
         {/* Table skeleton */}
-        <div className="rounded-2xl border border-white/40 bg-white/70 backdrop-blur-xl p-6 space-y-4">
+        <div className="space-y-4 rounded-2xl border border-white/60 bg-white/70 p-6 backdrop-blur-xl">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="flex gap-4 items-center">
-              <div className="h-4 w-32 bg-slate-200 rounded animate-pulse" />
-              <div className="h-4 w-48 bg-slate-200/70 rounded animate-pulse" />
-              <div className="h-4 flex-1 bg-slate-200/50 rounded animate-pulse" />
-              <div className="h-6 w-28 bg-slate-200 rounded-full animate-pulse" />
+            <div key={i} className="flex items-center gap-4">
+              <div className="skeleton h-4 w-32 rounded" />
+              <div className="skeleton h-4 w-48 rounded" />
+              <div className="skeleton h-4 flex-1 rounded" />
+              <div className="skeleton h-6 w-28 rounded-full" />
             </div>
           ))}
         </div>

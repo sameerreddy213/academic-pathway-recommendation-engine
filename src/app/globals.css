@@ -1,12 +1,172 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --paper: #faf6ee;
+  --ink: #211f2b;
+  --muted: #6b6577;
+  --accent: #0f766e;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: var(--paper);
+  color: var(--ink);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Serif display face for headings — editorial character, not generic sans */
+.font-display {
+  font-family: var(--font-display), "Georgia", "Times New Roman", serif;
+  letter-spacing: -0.02em;
+}
+
+/* ------------------------------------------------------------------ */
+/* Animations                                                          */
+/* ------------------------------------------------------------------ */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.96) translateY(12px);
+  }
+  60% {
+    transform: scale(1.01) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes float-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(28px, -34px) scale(1.06);
+  }
+}
+
+@keyframes float-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-26px, 30px) scale(1.08);
+  }
+}
+
+@keyframes gradient-pan {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.65s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+}
+.animate-fade-in {
+  animation: fade-in 0.9s ease both;
+}
+.animate-pop-in {
+  animation: pop-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.float-a {
+  animation: float-a 19s ease-in-out infinite;
+}
+.float-b {
+  animation: float-b 23s ease-in-out infinite;
+}
+
+/* Animated gradient text for the accent word */
+.text-gradient {
+  background-image: linear-gradient(100deg, #0f766e, #0d9488, #047857, #0f766e);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-pan 6s linear infinite;
+}
+
+/* Lift-on-hover for cards */
+.card-hover {
+  transition: transform 0.28s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.28s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 50px -24px rgba(15, 118, 110, 0.35);
+}
+
+/* Shimmer sweep used in skeletons and the primary button */
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+}
+.shimmer:hover::after {
+  animation: shimmer 0.9s ease;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: rgba(33, 31, 43, 0.07);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.6),
+    transparent
+  );
+  animation: shimmer 1.6s infinite;
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

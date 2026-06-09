@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getSupabase, Submission } from "@/lib/supabase";
 import SubmissionsDashboard from "./SubmissionsDashboard";
+import Decor from "../ui/Decor";
 
 async function getSubmissions(): Promise<Submission[]> {
   try {
@@ -26,31 +27,35 @@ export default async function SubmissionsPage() {
   const submissions = await getSubmissions();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/40 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+    <div className="relative min-h-screen">
+      <Decor />
+
+      <header className="sticky top-0 z-20 border-b border-stone-200/60 bg-[var(--paper)]/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-6 py-3.5">
+          <div className="flex items-center gap-2.5">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-sm font-bold text-white shadow-md shadow-emerald-600/25">
               A
             </div>
-            <span className="font-semibold text-slate-800">AcdyOn</span>
-            <span className="text-slate-300">/</span>
-            <span className="text-slate-500 text-sm">Submissions</span>
+            <span className="font-display text-lg font-semibold text-stone-800">AcdyOn</span>
+            <span className="text-stone-300">/</span>
+            <span className="text-sm text-stone-500">Submissions</span>
           </div>
           <Link
             href="/"
-            className="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium text-emerald-800 transition-colors hover:text-emerald-600"
           >
-            ← Back to Form
+            <span className="transition-transform group-hover:-translate-x-0.5">←</span> Back to form
           </Link>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-900">Submissions Dashboard</h1>
-          <p className="text-slate-500 text-sm mt-1">
-            Live overview of every recommendation generated.
+      <main className="mx-auto max-w-6xl px-5 sm:px-6 py-10">
+        <div className="mb-8 animate-fade-up">
+          <h1 className="font-display text-3xl font-semibold text-stone-900">
+            Submissions dashboard
+          </h1>
+          <p className="mt-1 text-sm text-stone-500">
+            A live overview of every recommendation generated.
           </p>
         </div>
 

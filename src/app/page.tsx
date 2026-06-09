@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Decor from "./ui/Decor";
 
 type FormData = {
   name: string;
@@ -36,10 +37,10 @@ const EXPERIENCES = [
 ];
 
 const BADGE_COLORS: Record<string, string> = {
-  "Certification Program": "bg-blue-100 text-blue-800 border-blue-200",
-  DBA: "bg-purple-100 text-purple-800 border-purple-200",
+  "Certification Program": "bg-sky-100 text-sky-800 border-sky-200",
+  DBA: "bg-violet-100 text-violet-800 border-violet-200",
   PhD: "bg-emerald-100 text-emerald-800 border-emerald-200",
-  "Honorary Doctorate": "bg-amber-100 text-amber-800 border-amber-200",
+  "Honorary Doctorate": "bg-amber-100 text-amber-900 border-amber-200",
 };
 
 const ICONS: Record<string, string> = {
@@ -57,6 +58,11 @@ const initialForm: FormData = {
   profession: "",
   careerGoal: "",
 };
+
+const inputClass =
+  "w-full rounded-xl border border-stone-300/80 bg-white/70 px-3.5 py-2.5 text-sm text-stone-900 placeholder-stone-400 shadow-sm transition-all duration-200 focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/15 hover:border-stone-400";
+
+const labelClass = "block text-sm font-medium text-stone-700 mb-1.5";
 
 export default function HomePage() {
   const [form, setForm] = useState<FormData>(initialForm);
@@ -94,6 +100,7 @@ export default function HomePage() {
           aiGenerated: Boolean(data.aiGenerated),
         });
         setForm(initialForm);
+        if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch {
       setError("Network error. Please try again.");
@@ -103,92 +110,96 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="relative min-h-screen">
+      <Decor />
+
       {/* Header */}
-      <header className="bg-white/70 backdrop-blur-xl border-b border-white/40 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+      <header className="sticky top-0 z-20 border-b border-stone-200/60 bg-[var(--paper)]/70 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-5 sm:px-6 py-3.5">
+          <div className="flex items-center gap-2.5">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-sm font-bold text-white shadow-md shadow-emerald-600/25">
               A
             </div>
-            <span className="font-semibold text-slate-800 text-lg">AcdyOn</span>
+            <span className="font-display text-lg font-semibold text-stone-800">AcdyOn</span>
           </div>
           <Link
             href="/submissions"
-            className="text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium text-emerald-800 transition-colors hover:text-emerald-600"
           >
-            View Submissions →
+            Submissions
+            <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </Link>
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-12">
-        {/* Hero */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 text-sm font-medium px-4 py-1.5 rounded-full mb-4">
-            <span>✨</span> AI-Powered Pathway
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3 leading-tight">
-            Academic Pathway
-            <br />
-            <span className="text-indigo-600">Recommendation Engine</span>
+      <main className="mx-auto max-w-2xl px-5 sm:px-6 py-12 sm:py-16">
+        {/* Hero — left-aligned, editorial */}
+        <div className="mb-10 animate-fade-up">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wide text-emerald-700">
+            <span className="text-emerald-500">✦</span> AI-powered guidance
+          </span>
+          <h1 className="font-display mt-5 text-4xl font-semibold leading-[1.08] text-stone-900 sm:text-5xl">
+            Your next
+            <br className="hidden sm:block" />{" "}
+            <span className="text-gradient">academic pathway</span>, decided.
           </h1>
-          <p className="text-slate-500 text-base sm:text-lg max-w-lg mx-auto">
-            Tell us about yourself and we&apos;ll recommend the ideal academic credential to
-            accelerate your career.
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-stone-600 sm:text-lg">
+            Share a few details and our engine recommends the ideal credential — a certification,
+            DBA, PhD, or honorary doctorate — with a personalised rationale written just for you.
           </p>
         </div>
 
-        {/* Result Card */}
+        {/* Result */}
         {result && (
-          <div className="mb-8 rounded-2xl border border-white/50 bg-white/70 backdrop-blur-xl shadow-xl shadow-indigo-100/50 p-6 sm:p-8">
+          <div className="animate-pop-in mb-8 overflow-hidden rounded-[1.75rem] border border-white/60 bg-white/75 p-6 shadow-2xl shadow-emerald-100/60 backdrop-blur-xl sm:p-8">
             <div className="flex items-start gap-4">
-              <div className="text-4xl">{ICONS[result.recommendation] ?? "🎓"}</div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-slate-500 mb-1">
-                  Hi{" "}
-                  <span className="font-semibold text-slate-700">{result.name}</span>, we
+              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-100 text-3xl shadow-inner">
+                {ICONS[result.recommendation] ?? "🎓"}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm text-stone-500">
+                  Hi <span className="font-semibold text-stone-700">{result.name}</span>, we
                   recommend:
                 </p>
-                <div className="flex flex-wrap items-center gap-2 mb-3">
+                <div className="mt-2 mb-3 flex flex-wrap items-center gap-2">
                   <span
-                    className={`inline-block text-sm font-semibold px-3 py-1 rounded-full border ${
+                    className={`inline-block rounded-full border px-3 py-1 text-sm font-semibold ${
                       BADGE_COLORS[result.recommendation] ??
-                      "bg-gray-100 text-gray-800 border-gray-200"
+                      "bg-stone-100 text-stone-800 border-stone-200"
                     }`}
                   >
                     {result.recommendation}
                   </span>
                   {result.aiGenerated && (
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-100 px-2 py-1 rounded-full">
+                    <span className="inline-flex items-center gap-1 rounded-full border border-emerald-100 bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700">
                       ✨ AI-generated
                     </span>
                   )}
                 </div>
-                <p className="text-slate-600 text-sm leading-relaxed">
+                <p className="font-display text-lg leading-relaxed text-stone-700">
                   {result.recommendation_reason}
                 </p>
               </div>
             </div>
             <button
               onClick={() => setResult(null)}
-              className="mt-5 w-full text-sm text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+              className="mt-6 w-full rounded-xl border border-stone-200 bg-white/60 py-2.5 text-sm font-medium text-emerald-800 transition-colors hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer"
             >
-              Submit another profile
+              ← Submit another profile
             </button>
           </div>
         )}
 
         {/* Form */}
         {!result && (
-          <div className="rounded-2xl border border-white/50 bg-white/70 backdrop-blur-xl shadow-xl shadow-indigo-100/40 p-6 sm:p-8">
-            <h2 className="text-lg font-semibold text-slate-800 mb-6">Your Profile</h2>
+          <div className="card-hover animate-fade-up rounded-[1.75rem] border border-white/60 bg-white/70 p-6 shadow-xl shadow-stone-200/50 backdrop-blur-xl sm:p-8">
+            <h2 className="font-display mb-6 text-xl font-semibold text-stone-800">Your profile</h2>
 
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                    Full Name <span className="text-red-500">*</span>
+                  <label className={labelClass}>
+                    Full Name <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -197,12 +208,12 @@ export default function HomePage() {
                     onChange={handleChange}
                     placeholder="Jane Doe"
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className={inputClass}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                    Email Address <span className="text-red-500">*</span>
+                  <label className={labelClass}>
+                    Email Address <span className="text-rose-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -211,22 +222,22 @@ export default function HomePage() {
                     onChange={handleChange}
                     placeholder="jane@example.com"
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className={inputClass}
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                    Highest Qualification <span className="text-red-500">*</span>
+                  <label className={labelClass}>
+                    Highest Qualification <span className="text-rose-500">*</span>
                   </label>
                   <select
                     name="qualification"
                     value={form.qualification}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className={inputClass}
                   >
                     <option value="">Select qualification</option>
                     {QUALIFICATIONS.map((q) => (
@@ -237,15 +248,15 @@ export default function HomePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                    Years of Work Experience <span className="text-red-500">*</span>
+                  <label className={labelClass}>
+                    Years of Work Experience <span className="text-rose-500">*</span>
                   </label>
                   <select
                     name="experience"
                     value={form.experience}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                    className={inputClass}
                   >
                     <option value="">Select experience</option>
                     {EXPERIENCES.map((ex) => (
@@ -258,8 +269,8 @@ export default function HomePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                  Current Profession <span className="text-red-500">*</span>
+                <label className={labelClass}>
+                  Current Profession <span className="text-rose-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -268,27 +279,27 @@ export default function HomePage() {
                   onChange={handleChange}
                   placeholder="e.g. Software Engineer, Business Analyst, Teacher"
                   required
-                  className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className={inputClass}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                  Career Goal <span className="text-red-500">*</span>
+                <label className={labelClass}>
+                  Career Goal <span className="text-rose-500">*</span>
                 </label>
                 <textarea
                   name="careerGoal"
                   value={form.careerGoal}
                   onChange={handleChange}
-                  placeholder="e.g. Transition into AI research, become a business executive, gain industry recognition..."
+                  placeholder="e.g. Transition into AI research, become a business executive, gain industry recognition…"
                   required
                   rows={3}
-                  className="w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition resize-none"
+                  className={`${inputClass} resize-none`}
                 />
               </div>
 
               {error && (
-                <div className="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                <div className="animate-fade-in rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
                   {error}
                 </div>
               )}
@@ -296,24 +307,26 @@ export default function HomePage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white font-semibold py-3 px-6 rounded-lg text-sm transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="shimmer relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-600/25 transition-all duration-200 hover:shadow-xl hover:shadow-emerald-600/30 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer"
               >
-                {loading ? (
-                  <>
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Analyzing your profile…
-                  </>
-                ) : (
-                  "Get My Recommendation →"
-                )}
+                <span className="relative z-10 inline-flex items-center justify-center gap-2">
+                  {loading ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                      Analysing your profile…
+                    </>
+                  ) : (
+                    <>Get my recommendation →</>
+                  )}
+                </span>
               </button>
             </form>
           </div>
         )}
       </main>
 
-      <footer className="mt-auto py-8 text-center text-sm text-slate-400">
-        &copy; 2025 AcdyOn · Academic Pathway Engine
+      <footer className="mt-auto py-8 text-center text-sm text-stone-400">
+        © 2025 AcdyOn · Academic Pathway Engine
       </footer>
     </div>
   );
