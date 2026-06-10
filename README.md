@@ -2,6 +2,8 @@
 
 An AI-powered web app that collects a user's profile, recommends the ideal academic credential — **Certification Program**, **DBA**, **PhD**, or **Honorary Doctorate** — stores every submission, and exposes an admin dashboard. Built for the Acdyon Technical Internship Challenge.
 
+**🌐 Live:** [academic-pathway-recommendation-eng.vercel.app](https://academic-pathway-recommendation-eng.vercel.app)
+
 ## ✨ Features
 
 - **Smart recommendation engine** — a deterministic rules engine scores all four pathways from qualification, experience, profession, and career goal.

@@ -20,7 +20,9 @@ const EXPERIENCE_YEARS: Record<string, number> = {
 };
 
 const RESEARCH_KEYWORDS = ["research", "academic", "teach", "professor", "scientist", "phd", "faculty"];
-const BUSINESS_KEYWORDS = ["business", "manag", "execut", "entrepren", "founder", "director", "ceo", "cfo", "coo", "leadership", "finance", "consult"];
+// NB: no bare "leadership" here — it would false-match "thought leadership",
+// which is a recognition signal, not a business-degree signal.
+const BUSINESS_KEYWORDS = ["business", "manag", "execut", "entrepren", "founder", "director", "ceo", "cfo", "coo", "finance", "consult"];
 const UPSKILL_KEYWORDS = ["skill", "learn", "switch", "transition", "upskill", "career change", "new field"];
 const RECOGNITION_KEYWORDS = ["recogni", "legacy", "impact", "influence", "thought leader", "expert", "authority"];
 
@@ -64,7 +66,7 @@ function score(
   // --- Honorary Doctorate ---
   if (expYears >= 15) scores["Honorary Doctorate"] += 5;
   if (expYears >= 10) scores["Honorary Doctorate"] += 2;
-  if (matchesKeywords(careerGoal, RECOGNITION_KEYWORDS)) scores["Honorary Doctorate"] += 4;
+  if (matchesKeywords(careerGoal, RECOGNITION_KEYWORDS)) scores["Honorary Doctorate"] += 6;
   if (matchesKeywords(profession, RECOGNITION_KEYWORDS)) scores["Honorary Doctorate"] += 2;
   if (qualRank >= 3) scores["Honorary Doctorate"] += 1;
 
