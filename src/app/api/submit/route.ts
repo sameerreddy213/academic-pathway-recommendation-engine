@@ -62,6 +62,10 @@ export async function POST(req: NextRequest) {
     const emailResult = await sendRecommendationEmail({
       to: email,
       name,
+      qualification,
+      experience,
+      profession,
+      careerGoal,
       recommendation,
       reason: explanation,
     });
